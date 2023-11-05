@@ -1,0 +1,172 @@
+* {
+    box-sizing: border-box;
+}
+
+.head {
+    background: #4088ca;
+}
+
+.head a {
+    color: #fff;
+}
+
+
+.cardBook {
+    height: 300px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+.cardBook .mask {
+    background: #4088ca;
+    width: 0;
+    height: 0;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+}
+
+.cardBook:hover .mask {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    opacity: .8 !important;
+    transition: all .5s;
+}
+
+.film-heade {
+    border-radius: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    width: 97% !important;
+}
+
+/* start cart */
+.offcanvas {
+    background-color: #eee;
+    opacity: .98;
+    min-height: 100vh;
+}
+
+.offcanvas-header {
+    background-color: #4088ca;
+}
+
+/*end*/
+
+
+.form-check-input[type="checkbox"]:checked {
+    background-color: #dc3545;
+}
+
+.title {
+    width: 115px;
+    height: 115px;
+    background-color: #4088ca;
+    color: #fff;
+}
+
+.show-chairs button:hover {
+    background-color: #4088ca !important;
+}
+
+.checkout {
+    background-color: #4088ca;
+}
+
+p {
+    margin: 0;
+}
+
+/* cart form */
+form {
+    width: 75%;
+    margin: auto;
+    position: relative;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #2969c9;
+}
+
+form input {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #fff;
+    font-family: Poppins;
+    box-sizing: border-box;
+    background-color: #4088ca;
+}
+
+form input,
+select {
+    outline: none;
+}
+
+.form-submit {
+    background: #4088ca;
+    color: #fff;
+    border-bottom: none;
+    width: 100%;
+    padding: 15px 39px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-submit:hover {
+    background-color: #3171cf;
+}
+
+.form-submit:active {
+    background-color: #4088ca;
+}
+
+::placeholder {
+    color: #fff;
+}
+
+@media (max-width: 767px) {
+    form {
+        width: 100%;
+    }
+
+    .checkout {
+        width: 90% !important;
+    }
+
+    .checkout h5 {
+        font-size: 16px;
+    }
+}
+
+/* end */
+
+
+/* custom class */
+.flex-col-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+/* alert */
+.alert {
+    position: absolute;
+    width: 90%;
+    text-align: center;
+    padding: 30px 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

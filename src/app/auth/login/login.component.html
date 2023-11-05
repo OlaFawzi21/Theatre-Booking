@@ -1,0 +1,48 @@
+<section class="signup">
+  <div class="container">
+    <div class="signup-content row w-75">
+      <div class="signup-form p-5 col-lg-6 col-12">
+        <h2 class="form-title text-uppercase">Sign in</h2>
+        <form class="register-form" #userForm="ngForm" (submit)="onSubmit(userForm.value)" ngNativeValidate>
+
+          <p class="alert alert-primary" *ngIf="invalid">Email or Password not correct!</p>
+
+          <div class="form-group">
+            <input type="email" name="email" [ngModel] #email="ngModel"
+              pattern="^\w+([.-]?\w+)*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" placeholder="Address@email.com" required />
+            <div *ngIf="email.errors && email.touched">
+              <small class="text-danger" *ngIf="email.errors?.['required']">
+                Email is required</small>
+              <small class="text-danger" *ngIf="email.errors?.['pattern']">
+                Email not valid</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="password" name="password" [ngModel] #pass="ngModel" pattern="\S{8,}" placeholder="Password"
+              required />
+            <div *ngIf="pass.errors && pass.touched">
+              <small class="text-danger" *ngIf="pass.errors?.['required']">
+                Password is required</small>
+              <small class="text-danger" *ngIf="pass.errors?.['pattern']">
+                Password must be at least 8 characters</small>
+            </div>
+          </div>
+
+          <div class="form-group form-button my-5">
+            <input type="submit" name="signup" class="form-submit rounded-3" value="Register" />
+            <a class="text-center d-block text-dark my-4" routerLink="/register">Don't have an account?, sign up</a>
+          </div>
+        </form>
+      </div>
+      <div class="signup-image col-lg-6 d-lg-flex flex-col-center d-none gap-2 p-0">
+        <h3 class="text-uppercase text-white">Welcome back!</h3>
+        <p class="text-capitalize text-white w-75 text-center">To keep connecting with us please login with your
+          personal info.</p>
+        <button class="p-2 px-3 btn btn-outline-light m-md-0 mt-3 w-50 rounded-3" routerLink="/register">
+          Sign Up
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

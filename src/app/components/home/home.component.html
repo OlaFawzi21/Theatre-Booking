@@ -1,0 +1,179 @@
+<!--start nav -->
+<div class="head p-4 px-5 d-flex justify-content-between align-items-md-center flex-md-row flex-column">
+  <div class="d-flex justify-content-between">
+    <h3 class="text-white text-uppercase">Theatre Booking ||</h3>
+    <a class="ms-3 d-md-none d-inline"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+  </div>
+  <div class="d-flex justify-content-between align-items-center">
+    <button class="p-2 px-3 btn btn-outline-light m-md-0 mt-3 w-100" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+      Show Cart
+    </button>
+    <a class="ms-3 d-md-inline d-none" (click)="logout()" routerLink="/login"><i
+        class="fa-solid fa-arrow-right-from-bracket"></i></a>
+  </div>
+</div>
+<!-- end nav -->
+
+<div class="container my-5 position-relative">
+
+  <!-- start film -->
+  <div class="row mb-5 justify-content-center" *ngFor="let film of filmsData">
+    <!-- start header of film info -->
+    <div class="film-heade p-4 w-100 mb-4 ">
+
+      <div class="d-flex justify-content-around flex-wrap">
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle title mb-3 text-center fw-bold flex-col-center">
+            <p>Film Title</p>
+            <p>{{film.title}}</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle title mb-3 text-center fw-bold flex-col-center">
+            <p>Director</p>
+            <p>{{film.director}}</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle title mb-3 text-center fw-bold flex-col-center">
+            <p>Duration</p>
+            <p>{{film.duration}}</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle title mb-3 text-center fw-bold flex-col-center">
+            <p>Release Date</p>
+            <p>{{film.releaseDate}}</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle title mb-3 text-center fw-bold flex-col-center">
+            <p>Chair Price</p>
+            <p>{{film.chairPice}}</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle title mb-3 text-center fw-bold flex-col-center">
+            <p>Food Price</p>
+            <p>{{film.foodPrice}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="show-chairs mt-5 w-50 m-auto">
+        <button class="btn btn-outline-primary w-100 p-2" (click)="displayChairs(film)">Show Chairs</button>
+      </div>
+    </div>
+    <!-- end header of film info -->
+
+    <!-- start show chairs -->
+    <div *ngIf="film.showChairs" class="row justify-content-center">
+      <div class="cardBook col-lg-3 col-md-4 col-10 m-3 position-relative rounded-2 overflow-hidden"
+        [class.bg-danger]="chair.wantBook" *ngFor="let chair of film.chairs">
+        <img class="w-100 h-100" src="assets/chair.png" alt="">
+
+        <div class="mask position-absolute rounded-2 opacity-0 flex-col-center gap-3">
+          <button class="p-2 px-3 btn btn-outline-light" [disabled]="!userEmail" *ngIf="!chair.wantBook"
+            (click)="booking(chair)">
+            Booking Film
+          </button>
+          <button class="p-2 px-3 btn btn-outline-light" [hidden]="chair.userEmail != userEmail" *ngIf="chair.wantBook"
+            (click)="unBooking(chair)">
+            Cancel Booking
+          </button>
+
+          <div class="form-check form-switch text-white" [hidden]="(chair.userEmail != userEmail)">
+            <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" [checked]="chair.wantFood"
+              [disabled]="!chair.wantBook" (change)="updateFoodPreference(chair)">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Book with food</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end show chairs -->
+
+  </div>
+  <!-- end film -->
+
+
+  <!-- start cart -->
+  <div class="sidebar-total">
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+      <div class="offcanvas-header w-75 mx-auto my-4 p-3 text-white text-uppercase rounded-3">
+        <h2 id="offcanvasTopLabel" class="text-center w-100">Cart</h2>
+        <button type="button" class="btn-close text-reset me-4" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <div class="offcanvas-body p-3">
+        <!-- start cart info -->
+        <div class="row justify-content-center" *ngFor="let film of filmsData">
+          <div class="cardBook col-lg-3 col-md-4 col-10 m-3 position-relative rounded-2 overflow-hidden"
+            [class.bg-danger]="chair.wantBook" *ngFor="let chair of showBookChairsCart(film)">
+
+            <img class="w-100 h-100" src="assets/chair.png" alt="">
+
+            <div class="mask position-absolute rounded-2 opacity-0 flex-col-center gap-3">
+              <button class="p-2 px-3 btn btn-outline-light" *ngIf="!chair.wantBook" (click)="booking(chair)">
+                Booking Film
+              </button>
+              <button class="p-2 px-3 btn btn-outline-light" *ngIf="chair.wantBook" (click)="unBooking(chair)">
+                Cancel Booking
+              </button>
+
+              <div class="form-check form-switch text-white">
+                <input class="form-check-input " type="checkbox" [checked]="chair.wantFood" [disabled]="!chair.wantBook"
+                  (change)="updateFoodPreference(chair)">
+                <label class="form-check-label">Book with food</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- end car info -->
+
+        <!-- start checkout -->
+        <div class="checkout w-75 mx-auto mt-4 p-3 p-md-5 text-white rounded-3">
+          <h5 class="my-3">No.chairs booking: {{noChairBook}}</h5>
+          <h5 class="my-3">No.chairs booking with food : {{noChairBookWithFood}}</h5>
+          <h5 class="my-3">Total price: {{total}}</h5>
+        </div>
+        <!-- end checkout -->
+
+        <!-- start form -->
+        <div class="checkout w-75 mx-auto mt-4 p-3 p-md-5 text-white rounded-3" *ngIf="total!=0">
+          <form #userForm="ngForm" (submit)="onSubmit(userForm.value)" ngNativeValidate>
+            <div class="form-group">
+              <input type="text" name="name" [ngModel] #username="ngModel" placeholder="Enter Name" minlength="2"
+                required />
+              <div *ngIf="username.errors && username.touched">
+                <small class="text-danger" *ngIf="username.errors?.['required']">
+                  Username is required</small>
+                <small class="text-danger" *ngIf="username.errors?.['minlength']">
+                  At least 2 characters</small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input type="text" name="phone" [ngModel] #phone="ngModel" placeholder="Enter Phone Number" required />
+              <div *ngIf="phone.errors && phone.touched">
+                <small class="text-danger" *ngIf="phone.errors?.['required']">
+                  Phone is required</small>
+                <small class="text-danger" *ngIf="phone.errors?.['pattern']">
+                  Phone not valid!</small>
+              </div>
+            </div>
+
+            <button class="btn btn-outline-light p-2 w-100 mt-3" type="submit">Confirm Booking</button>
+            <p class="alert alert-primary" *ngIf="valid">Confirmed Successfully</p>
+          </form>
+        </div>
+        <!-- end form -->
+
+      </div>
+    </div>
+  </div>
+  <!-- end cart -->
+
+
+</div>
